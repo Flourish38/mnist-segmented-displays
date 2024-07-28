@@ -17,11 +17,11 @@ encoding = BitMatrix([
 ])'
 indices = [y .== n for n in 0:9]
 
+mse(x, y) = mean((x .- y) .^ 2)
+
 pixel = CartesianIndex(14, 14)
 pixel_data = [mean(X[pixel, i]) for i in indices]
 errors = [mse(pixel_data, segment_data) for segment_data in eachrow(encoding)]
-
-mse(x, y) = mean((x .- y) .^ 2)
 
 output = similar(X[:, :, 1], Int)
 for pixel in CartesianIndices((1:28, 1:28))
